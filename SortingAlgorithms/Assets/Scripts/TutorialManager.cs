@@ -11,32 +11,40 @@ public class TutorialManager : MonoBehaviour
     [TextArea]
     public string[] messages;
 
-    [Header("Typing Settings")]
+    [Header("Typing")]
     public float typingSpeed = 0.05f;
-    public float delayBetweenMessages = 1.5f;
+
+    private int currentMessageIndex = 0;
+    private bool isTyping = false;
 
     private void Start()
     {
-        StartCoroutine(TutorialSequence());
+        if (messages.Length > 0)
+        {
+            StartCoroutine(TypeText(messages[currentMessageIndex]));
+        }
     }
 
-    private IEnumerator TutorialSequence()
+    public void NextMessage()
     {
-        foreach (string message in messages)
+        if (isTyping)
+            return;
+
+        currentMessageIndex++;
+
+        if (currentMessageIndex >= messages.Length)
         {
-            yield return StartCoroutine(TypeText(message));
-            yield return new WaitForSeconds(delayBetweenMessages);
+            TutorialFinished();
+            return;
         }
 
-        // Tutorial finished
-        tutorialText.text = "";
-
-        // Start sorting demonstration here
-        // StartCoroutine(BubbleSortDemo());
+        StartCoroutine(TypeText(messages[currentMessageIndex]));
     }
 
     private IEnumerator TypeText(string message)
     {
+        isTyping = true;
+
         tutorialText.text = "";
 
         foreach (char letter in message)
@@ -44,5 +52,20 @@ public class TutorialManager : MonoBehaviour
             tutorialText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
+
+        isTyping = false;
+    }
+
+    private void TutorialFinished()
+    {
+        tutorialText.text = "";
+
+        Debug.Log("Tutorial Finished!");
+
+        // Start your sorting demonstration here
+        // StartCoroutine(BubbleSortDemo());
+
+        // Or activate another panel:
+        // demoPanel.SetActive(true);
     }
 }
