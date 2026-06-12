@@ -14,8 +14,14 @@ public class TutorialManager : MonoBehaviour
     [Header("Typing")]
     public float typingSpeed = 0.05f;
 
+
+    [Header("Sorting Tutorial")]
+    public InsertionSortTutorial insertionSortTutorial;
+
+
     private int currentMessageIndex = 0;
     private bool isTyping = false;
+
 
     private void Start()
     {
@@ -25,21 +31,28 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+
     public void NextMessage()
     {
         if (isTyping)
             return;
 
+
         currentMessageIndex++;
 
+
+        // Finished explanation section
         if (currentMessageIndex >= messages.Length)
         {
             TutorialFinished();
             return;
         }
 
+
         StartCoroutine(TypeText(messages[currentMessageIndex]));
     }
+
+
 
     private IEnumerator TypeText(string message)
     {
@@ -47,25 +60,35 @@ public class TutorialManager : MonoBehaviour
 
         tutorialText.text = "";
 
+
         foreach (char letter in message)
         {
             tutorialText.text += letter;
+
             yield return new WaitForSeconds(typingSpeed);
         }
 
+
         isTyping = false;
     }
+
+
 
     private void TutorialFinished()
     {
         tutorialText.text = "";
 
-        Debug.Log("Tutorial Finished!");
+        Debug.Log("Explanation finished. Starting insertion sort...");
 
-        // Start your sorting demonstration here
-        // StartCoroutine(BubbleSortDemo());
 
-        // Or activate another panel:
-        // demoPanel.SetActive(true);
+        // Start insertion sort tutorial
+        if (insertionSortTutorial != null)
+        {
+            insertionSortTutorial.StartSorting();
+        }
+        else
+        {
+            Debug.LogWarning("No InsertionSortTutorial connected!");
+        }
     }
 }
