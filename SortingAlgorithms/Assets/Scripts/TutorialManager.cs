@@ -81,10 +81,11 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("Explanation finished. Starting insertion sort...");
 
 
-        // Start insertion sort tutorial
+        // starting insertion sort tutorial
         if (insertionSortTutorial != null)
         {
             insertionSortTutorial.StartSorting();
+
         }
         else
         {

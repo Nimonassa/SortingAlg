@@ -34,28 +34,28 @@ public class InsertionSortTutorial : MonoBehaviour
 
 
 
-    void CreateBlocks()
+   void CreateBlocks()
+{
+    for (int i = 0; i < numbers.Count; i++)
     {
+        GameObject block = Instantiate(
+            numberBlockPrefab,
+            startPosition
+        );
 
-        for(int i = 0; i < numbers.Count; i++)
-        {
+        block.transform.localPosition = new Vector3(
+            i * spacing,
+            0,
+            0
+        );
 
-            GameObject block = Instantiate(
-                numberBlockPrefab,
-                startPosition.position + new Vector3(i * spacing,0,0),
-                Quaternion.identity
-            );
+        block.GetComponent<NumberBlock>()
+            .SetValue(numbers[i]);
 
-
-            block.GetComponent<NumberBlock>()
-                .SetValue(numbers[i]);
-
-
-            blocks.Add(block);
-
-        }
-
+        blocks.Add(block);
+        Debug.Log("Block " + i + " position: " + block.transform.localPosition);
     }
+}
 
 
 
@@ -68,78 +68,90 @@ public class InsertionSortTutorial : MonoBehaviour
 
 
 
-    IEnumerator InsertionSortSteps()
+   IEnumerator InsertionSortSteps()
+{
+    for (int i = 1; i < numbers.Count; i++)
     {
+        int current = numbers[i];
 
-        for(int i = 1; i < numbers.Count; i++)
+        GameObject currentBlock = blocks[i];
+
+
+        Debug.Log("Selected: " + current);
+
+
+        int j = i - 1;
+
+
+        while (j >= 0 && current < numbers[j])
         {
 
-            int current = numbers[i];
+            Debug.Log(
+                current + 
+                " moves before " + 
+                numbers[j]
+            );
 
 
-            int j = i - 1;
+            // Move number value
+            numbers[j + 1] = numbers[j];
 
 
-
-            Debug.Log("Selected: " + current);
-
-
-
-            while(j >= 0 && current < numbers[j])
-            {
-
-                Debug.Log(
-                    current +
-                    " moves before " +
-                    numbers[j]
-                );
+            // Move block visually
+            blocks[j + 1] = blocks[j];
 
 
-                numbers[j+1] = numbers[j];
-
-                blocks[j+1]
-                    .transform.position =
-                    blocks[j].transform.position;
-
-
-
-                j--;
-
-
-                yield return new WaitForSeconds(1);
-
-            }
-
-
-
-            numbers[j+1] = current;
-
-
-
-            // Move visual block
-            blocks[j+1]
-                .GetComponent<NumberBlock>()
-                .SetValue(current);
-
-
-
-            Vector3 target =
+            Vector3 targetPosition =
                 startPosition.position +
-                new Vector3(j * spacing,0,0);
-
+                new Vector3((j + 1) * spacing, 0, 0);
 
 
             yield return MoveBlock(
-                blocks[j+1],
-                target
+                blocks[j + 1],
+                targetPosition
             );
 
+
+            j--;
+
+
+            yield return new WaitForSeconds(1);
         }
 
 
-        Debug.Log("Finished");
 
+        // Insert number
+        numbers[j + 1] = current;
+
+
+        // Insert block reference
+        blocks[j + 1] = currentBlock;
+
+
+
+        Vector3 finalPosition =
+            startPosition.position +
+            new Vector3((j + 1) * spacing, 0, 0);
+
+
+        yield return MoveBlock(
+            currentBlock,
+            finalPosition
+        );
+
+
+        Debug.Log(
+            "Inserted " + current
+        );
+
+
+        yield return new WaitForSeconds(1);
     }
+
+
+    Debug.Log("Sorting Complete");
+
+}
 
 
 

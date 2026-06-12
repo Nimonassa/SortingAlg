@@ -401,11 +401,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &429090111 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5177287941202708332, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
-  m_PrefabInstance: {fileID: 1156477929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &448480435
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6955ea135582744babe65a9ab31f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InsertionSortTutorial
-  numberBlockPrefab: {fileID: 429090111}
+  numberBlockPrefab: {fileID: 1831297860}
   startPosition: {fileID: 1482234061}
   numbers: 0500000003000000080000000100000002000000
   spacing: 2
@@ -621,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6753392859229065058, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1173.87
+      value: -158
       objectReference: {fileID: 0}
     - target: {fileID: 6753392859229065058, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -972,7 +967,7 @@ MonoBehaviour:
     step.'
   - "In this section we will learn about Insertion-sort algorithm. \n\nPress on Next
     if you're ready! \n"
-  typingSpeed: 0.22
+  typingSpeed: -0.63
   insertionSortTutorial: {fileID: 1121041385}
 --- !u!4 &1524708404
 Transform:
@@ -1143,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
   text: {fileID: 713429655}
-  value: 0
+  value: 1
 --- !u!1 &1869316061
 GameObject:
   m_ObjectHideFlags: 0
