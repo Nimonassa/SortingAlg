@@ -16,7 +16,7 @@ public class TutorialManager : MonoBehaviour
 
 
     [Header("Sorting Tutorial")]
-    public InsertionSortTutorial insertionSortTutorial;
+    public MergeSortTutorial mergeSortTutorial;
 
 
     private int currentMessageIndex = 0;
@@ -78,18 +78,17 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialText.text = "";
 
-        Debug.Log("Explanation finished. Starting insertion sort...");
+        Debug.Log("Explanation finished. Starting merge sort...");
 
 
-        // starting insertion sort tutorial
-        if (insertionSortTutorial != null)
+        // Start merge sort tutorial after explanation messages
+        if (mergeSortTutorial != null)
         {
-            insertionSortTutorial.StartSorting();
-
+            mergeSortTutorial.StartSorting();
         }
         else
         {
-            Debug.LogWarning("No InsertionSortTutorial connected!");
+            Debug.LogWarning("No MergeSortTutorial connected!");
         }
     }
 }
