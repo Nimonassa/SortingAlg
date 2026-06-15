@@ -432,6 +432,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389965164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 173081644167947613, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
+  m_PrefabInstance: {fileID: 1156477929}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
 --- !u!1 &448480435
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,17 +576,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448480435}
   m_CullTransparentMesh: 1
---- !u!114 &713429655 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8557847944594529655, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
-  m_PrefabInstance: {fileID: 1156477929}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1107624696
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MergeSortTutorial
   blocks:
   - {fileID: 1389970637}
-  tutorialText: {fileID: 713429655}
+  tutorialText: {fileID: 389965164}
   moveSpeed: 1
 --- !u!4 &1107624698
 Transform:
@@ -681,7 +681,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2014939595488201739, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
+    - target: {fileID: 2384117367368319056, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
       propertyPath: value
       value: 0
       objectReference: {fileID: 0}
@@ -729,15 +729,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8557847944594529655, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2014939595488201739, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6477170134986886101, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: a48f22487fb68a84e97c04552c3db32c, type: 3}
 --- !u!1 &1178979306
 GameObject:
@@ -1042,7 +1040,7 @@ Transform:
   m_GameObject: {fileID: 1482234060}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 355, y: 219.1, z: 0}
+  m_LocalPosition: {x: 109, y: 219.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

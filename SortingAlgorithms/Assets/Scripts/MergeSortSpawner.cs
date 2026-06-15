@@ -42,9 +42,8 @@ void Start()
     {
         GameObject block = Instantiate(numberPrefab);
 
-        block.transform.SetParent(transform, false);
-
-        block.transform.localPosition = new Vector3(i * 2, 0, 0);
+      block.transform.SetParent(transform);
+block.transform.position = transform.position + new Vector3(i * 2, 0, 0);
 
         block.GetComponent<NumberBlock>().SetValue(numbers[i]);
 

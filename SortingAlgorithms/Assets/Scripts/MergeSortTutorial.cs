@@ -7,10 +7,11 @@ using UnityEngine;
 public class MergeSortTutorial : MonoBehaviour
 {
 
-public List<GameObject> blocks = new List<GameObject>();
+    public List<GameObject> blocks;
 
 
-    public TextMeshProUGUI tutorialText;
+
+    public TextMeshPro tutorialText;
 
 
 
@@ -18,19 +19,12 @@ public List<GameObject> blocks = new List<GameObject>();
 
 
 
-public void StartSorting()
-{
-
-    if(blocks.Count == 0)
+    public void StartSorting()
     {
-        Debug.LogError("No blocks assigned to MergeSortTutorial!");
-        return;
+
+        StartCoroutine(MergeSortSequence());
+
     }
-
-
-    StartCoroutine(MergeSortSequence());
-
-}
 
 
 

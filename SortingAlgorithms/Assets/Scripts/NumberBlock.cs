@@ -7,7 +7,7 @@ public class NumberBlock : MonoBehaviour
 
     public int value;
 
-    public TextMeshProUGUI text;
+    public TextMeshPro text;
 
 
     public void SetValue(int number)
