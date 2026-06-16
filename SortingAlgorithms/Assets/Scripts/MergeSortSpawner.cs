@@ -7,7 +7,6 @@ public class MergeSortSpawner : MonoBehaviour
 
     public GameObject numberPrefab;
 
-
     public MergeSortTutorial tutorial;
 
 
@@ -17,38 +16,60 @@ public class MergeSortSpawner : MonoBehaviour
     };
 
 
-
-    public List<GameObject> blocks =
-    new List<GameObject>();
+    public List<GameObject> blocks = new List<GameObject>();
 
 
-
-void Start()
-{
-
-    CreateBlocks();
+    private bool hasSpawned = false;
 
 
-    Debug.Log("Blocks created: " + blocks.Count);
 
-
-    tutorial.blocks = blocks;
-
-}
-
-  void CreateBlocks()
-{
-    for (int i = 0; i < numbers.Length; i++)
+    public void SpawnBlocks()
     {
-        GameObject block = Instantiate(numberPrefab);
 
-      block.transform.SetParent(transform);
-block.transform.position = transform.position + new Vector3(i * 2, 0, 0);
+        if(hasSpawned)
+            return;
 
-        block.GetComponent<NumberBlock>().SetValue(numbers[i]);
 
-        blocks.Add(block);
+        hasSpawned = true;
+
+
+        CreateBlocks();
+
+
+        tutorial.blocks = blocks;
+
+
+        tutorial.PositionCamera(blocks);
+
+
+        tutorial.StartSorting();
+
     }
-}
+
+
+
+
+    void CreateBlocks()
+    {
+
+        for(int i = 0; i < numbers.Length; i++)
+        {
+
+            GameObject block = Instantiate(numberPrefab);
+
+
+block.transform.position =
+new Vector3(510+ (i * 2),388,0);
+
+            block.GetComponent<NumberBlock>()
+            .SetValue(numbers[i]);
+
+
+
+            blocks.Add(block);
+
+        }
+
+    }
 
 }

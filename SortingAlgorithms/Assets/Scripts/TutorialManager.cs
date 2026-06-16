@@ -18,6 +18,9 @@ public class TutorialManager : MonoBehaviour
     [Header("Sorting Tutorial")]
     public MergeSortTutorial mergeSortTutorial;
 
+    [Header("Spawner")]
+public MergeSortSpawner mergeSortSpawner;
+
 
     private int currentMessageIndex = 0;
     private bool isTyping = false;
@@ -74,21 +77,28 @@ public class TutorialManager : MonoBehaviour
 
 
 
-    private void TutorialFinished()
+  private void TutorialFinished()
+{
+
+    tutorialText.text = "";
+
+
+    Debug.Log("Explanation finished. Spawning merge sort...");
+
+
+
+    if(mergeSortSpawner != null)
     {
-        tutorialText.text = "";
 
-        Debug.Log("Explanation finished. Starting merge sort...");
+        mergeSortSpawner.SpawnBlocks();
 
-
-        // Start merge sort tutorial after explanation messages
-        if (mergeSortTutorial != null)
-        {
-            mergeSortTutorial.StartSorting();
-        }
-        else
-        {
-            Debug.LogWarning("No MergeSortTutorial connected!");
-        }
     }
+    else
+    {
+
+        Debug.LogWarning("No MergeSortSpawner connected!");
+
+    }
+
+}
 }
