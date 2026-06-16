@@ -7,7 +7,8 @@ public class NumberBlock : MonoBehaviour
 
     public int value;
 
-public TextMeshProUGUI text;
+    public TextMeshPro text;
+
 
     public void SetValue(int number)
     {
@@ -17,22 +18,32 @@ public TextMeshProUGUI text;
 
 
 
-    public IEnumerator MoveTo(Vector2 target, float duration)
-{
-    RectTransform rt = GetComponent<RectTransform>();
-
-    Vector2 start = rt.anchoredPosition;
-    float t = 0;
-
-    while (t < duration)
+    public IEnumerator MoveTo(Vector3 target, float duration)
     {
-        t += Time.deltaTime;
-        rt.anchoredPosition = Vector2.Lerp(start, target, t / duration);
-        yield return null;
-    }
 
-    rt.anchoredPosition = target;
-}
+        Vector3 start = transform.position;
+
+        float time = 0;
+
+
+        while(time < duration)
+        {
+
+            transform.position =
+            Vector3.Lerp(start,target,time/duration);
+
+
+            time += Time.deltaTime;
+
+
+            yield return null;
+
+        }
+
+
+        transform.position = target;
+
+    }
 
 
 

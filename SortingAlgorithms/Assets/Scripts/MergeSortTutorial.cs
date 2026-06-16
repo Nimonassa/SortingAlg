@@ -11,6 +11,8 @@ public class MergeSortTutorial : MonoBehaviour
     [Header("Tutorial UI Text")]
     public TextMeshProUGUI tutorialText;
 
+    [Header("Camera")]
+    public Camera mainCamera;
 
     public float moveSpeed = 1f;
 
@@ -19,7 +21,29 @@ public class MergeSortTutorial : MonoBehaviour
         StartCoroutine(MergeSortSequence());
     }
 
-    // UI DOES NOT NEED CAMERA LOGIC
+    // Keeps camera centered on array
+    public void PositionCamera(List<GameObject> blocks)
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
+        Vector3 center = Vector3.zero;
+
+        foreach (GameObject block in blocks)
+        {
+            center += block.transform.position;
+        }
+
+        center /= blocks.Count;
+
+        mainCamera.transform.position = new Vector3(center.x, center.y, -15);
+        mainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        mainCamera.orthographic = true;
+        mainCamera.orthographicSize = 5;
+    }
+
+    // ---------------- CORE SEQUENCE ----------------
 
     IEnumerator MergeSortSequence()
     {
@@ -47,44 +71,45 @@ public class MergeSortTutorial : MonoBehaviour
         tutorialText.text = "Finished! The list is sorted.";
     }
 
-    // ---------------- UI MOVE HELPERS ----------------
+    // ---------------- CENTERED POSITIONING ----------------
 
-    Vector2 GetPos(GameObject obj)
+    Vector3 GetCenteredPosition(int index, int count, float spacing)
     {
-        return obj.GetComponent<RectTransform>().anchoredPosition;
+        float totalWidth = (count - 1) * spacing;
+        float startX = -totalWidth / 2f;
+
+        float x = startX + index * spacing;
+
+        return new Vector3(x, 0f, 0f);
     }
 
-    void SetPos(GameObject obj, Vector2 pos)
+    Vector3 GetBlockPos(GameObject obj)
     {
-        obj.GetComponent<RectTransform>().anchoredPosition = pos;
+        return obj.transform.position;
     }
 
-    
+    // ---------------- SPLIT ----------------
 
     IEnumerator Split()
     {
         for (int i = 0; i < 4; i++)
         {
-            Vector2 pos = GetPos(blocks[i]) + new Vector2(-40, 0);
+            Vector3 pos = GetBlockPos(blocks[i]) + new Vector3(-1f, 0, 0);
 
-            StartCoroutine(
-                blocks[i].GetComponent<NumberBlock>()
-                .MoveTo(pos, moveSpeed)
-            );
+            StartCoroutine(blocks[i].GetComponent<NumberBlock>().MoveTo(pos, moveSpeed));
         }
 
         for (int i = 4; i < 8; i++)
         {
-            Vector2 pos = GetPos(blocks[i]) + new Vector2(40, 0);
+            Vector3 pos = GetBlockPos(blocks[i]) + new Vector3(1f, 0, 0);
 
-            StartCoroutine(
-                blocks[i].GetComponent<NumberBlock>()
-                .MoveTo(pos, moveSpeed)
-            );
+            StartCoroutine(blocks[i].GetComponent<NumberBlock>().MoveTo(pos, moveSpeed));
         }
 
         yield return new WaitForSeconds(moveSpeed);
     }
+
+    // ---------------- COMPARE ----------------
 
     IEnumerator Compare(int a, int b)
     {
@@ -97,10 +122,12 @@ public class MergeSortTutorial : MonoBehaviour
         blocks[b].GetComponent<NumberBlock>().ResetColor();
     }
 
+    // ---------------- SWAP ----------------
+
     IEnumerator Swap(int a, int b)
     {
-        Vector2 posA = GetPos(blocks[a]);
-        Vector2 posB = GetPos(blocks[b]);
+        Vector3 posA = GetBlockPos(blocks[a]);
+        Vector3 posB = GetBlockPos(blocks[b]);
 
         StartCoroutine(blocks[a].GetComponent<NumberBlock>().MoveTo(posB, moveSpeed));
         StartCoroutine(blocks[b].GetComponent<NumberBlock>().MoveTo(posA, moveSpeed));
@@ -112,8 +139,12 @@ public class MergeSortTutorial : MonoBehaviour
         blocks[b] = temp;
     }
 
+    // ---------------- FINAL SORT (CENTERED RESET) ----------------
+
     IEnumerator FinalSort()
     {
+        float spacing = 2f;
+
         blocks.Sort((a, b) =>
             a.GetComponent<NumberBlock>().value.CompareTo(
             b.GetComponent<NumberBlock>().value)
@@ -121,11 +152,10 @@ public class MergeSortTutorial : MonoBehaviour
 
         for (int i = 0; i < blocks.Count; i++)
         {
-            Vector2 target = new Vector2(i * 80, 0);
+            Vector3 target = GetCenteredPosition(i, blocks.Count, spacing);
 
             StartCoroutine(
-                blocks[i].GetComponent<NumberBlock>()
-                .MoveTo(target, moveSpeed)
+                blocks[i].GetComponent<NumberBlock>().MoveTo(target, moveSpeed)
             );
         }
 
