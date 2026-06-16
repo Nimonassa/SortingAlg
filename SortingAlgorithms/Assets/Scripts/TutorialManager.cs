@@ -14,17 +14,12 @@ public class TutorialManager : MonoBehaviour
     [Header("Typing")]
     public float typingSpeed = 0.05f;
 
-
-    [Header("Sorting Tutorial")]
-    public MergeSortTutorial mergeSortTutorial;
-
     [Header("Spawner")]
-public MergeSortSpawner mergeSortSpawner;
-
+    public MergeSortSpawner mergeSortSpawner;
 
     private int currentMessageIndex = 0;
     private bool isTyping = false;
-
+    public bool tutorialFinished = false;
 
     private void Start()
     {
@@ -34,28 +29,21 @@ public MergeSortSpawner mergeSortSpawner;
         }
     }
 
-
     public void NextMessage()
     {
-        if (isTyping)
+        if (isTyping || tutorialFinished)
             return;
-
 
         currentMessageIndex++;
 
-
-        // Finished explanation section
         if (currentMessageIndex >= messages.Length)
         {
             TutorialFinished();
             return;
         }
 
-
         StartCoroutine(TypeText(messages[currentMessageIndex]));
     }
-
-
 
     private IEnumerator TypeText(string message)
     {
@@ -63,42 +51,30 @@ public MergeSortSpawner mergeSortSpawner;
 
         tutorialText.text = "";
 
-
         foreach (char letter in message)
         {
             tutorialText.text += letter;
-
             yield return new WaitForSeconds(typingSpeed);
         }
-
 
         isTyping = false;
     }
 
-
-
-  private void TutorialFinished()
-{
-
-    tutorialText.text = "";
-
-
-    Debug.Log("Explanation finished. Spawning merge sort...");
-
-
-
-    if(mergeSortSpawner != null)
+    private void TutorialFinished()
     {
+        tutorialFinished = true;
 
-        mergeSortSpawner.SpawnBlocks();
+        tutorialText.text = "";
 
+        Debug.Log("Explanation finished. Spawning merge sort...");
+
+        if (mergeSortSpawner != null)
+        {
+            mergeSortSpawner.SpawnBlocks();
+        }
+        else
+        {
+            Debug.LogWarning("No MergeSortSpawner connected!");
+        }
     }
-    else
-    {
-
-        Debug.LogWarning("No MergeSortSpawner connected!");
-
-    }
-
-}
 }

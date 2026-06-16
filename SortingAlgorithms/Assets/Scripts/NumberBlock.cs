@@ -1,14 +1,29 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NumberBlock : MonoBehaviour
 {
-
     public int value;
 
-    public TextMeshPro text;
+    public TextMeshProUGUI text;
 
+    private RectTransform rectTransform;
+    private Image image;
+
+    private Color originalColor;
+
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        image = GetComponent<Image>();
+
+        if (image != null)
+            originalColor = image.color;
+    }
+
+    // ---------------- VALUE ----------------
 
     public void SetValue(int number)
     {
@@ -16,47 +31,38 @@ public class NumberBlock : MonoBehaviour
         text.text = number.ToString();
     }
 
+    // ---------------- UI MOVEMENT ----------------
 
-
-    public IEnumerator MoveTo(Vector3 target, float duration)
+    public IEnumerator MoveTo(Vector2 target, float duration)
     {
+        Vector2 start = rectTransform.anchoredPosition;
 
-        Vector3 start = transform.position;
+        float time = 0f;
 
-        float time = 0;
-
-
-        while(time < duration)
+        while (time < duration)
         {
-
-            transform.position =
-            Vector3.Lerp(start,target,time/duration);
-
+            rectTransform.anchoredPosition =
+                Vector2.Lerp(start, target, time / duration);
 
             time += Time.deltaTime;
 
-
             yield return null;
-
         }
 
-
-        transform.position = target;
-
+        rectTransform.anchoredPosition = target;
     }
 
-
+    // ---------------- HIGHLIGHT ----------------
 
     public void Highlight()
     {
-        GetComponent<Renderer>().material.color = Color.yellow;
+        if (image != null)
+            image.color = Color.yellow;
     }
-
-
 
     public void ResetColor()
     {
-        GetComponent<Renderer>().material.color = Color.white;
+        if (image != null)
+            image.color = originalColor;
     }
-
 }

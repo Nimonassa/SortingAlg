@@ -4,59 +4,69 @@ using UnityEngine;
 public class MergeSortSpawner : MonoBehaviour
 {
     public GameObject numberPrefab;
-    public MergeSortTutorial tutorial;
+    public RectTransform spawnParent;
 
     public int[] numbers =
     {
-        8,3,5,4,7,6,1,2
+        8, 3, 5, 4, 7, 6, 1, 2
     };
 
     public List<GameObject> blocks = new List<GameObject>();
 
     private bool hasSpawned = false;
 
+    /// <summary>
+    /// Call this FROM your tutorial when it finishes
+    /// </summary>
     public void SpawnBlocks()
     {
         if (hasSpawned)
+        {
+            Debug.Log("Blocks already spawned — ignoring");
             return;
+        }
 
         hasSpawned = true;
 
         CreateBlocks();
-
-        tutorial.blocks = blocks;
-
-        tutorial.PositionCamera(blocks);
-
-        tutorial.StartSorting();
     }
 
-    void CreateBlocks()
+    private void CreateBlocks()
     {
-        float spacing = 2f;
+        // clear old UI children
+        foreach (Transform child in spawnParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        blocks.Clear();
+
+        float spacing = 100f;
 
         for (int i = 0; i < numbers.Length; i++)
         {
-            GameObject block = Instantiate(numberPrefab);
+            GameObject block = Instantiate(numberPrefab, spawnParent);
 
-            Vector3 pos = GetCenteredPosition(i, numbers.Length, spacing);
+            RectTransform rt = block.GetComponent<RectTransform>();
+            rt.anchoredPosition = GetCenteredPosition(i, numbers.Length, spacing);
 
-            block.transform.position = pos;
-
-            block.GetComponent<NumberBlock>()
-                .SetValue(numbers[i]);
+            NumberBlock nb = block.GetComponent<NumberBlock>();
+            if (nb != null)
+            {
+                nb.SetValue(numbers[i]);
+            }
 
             blocks.Add(block);
         }
     }
 
-    Vector3 GetCenteredPosition(int index, int count, float spacing)
+    private Vector2 GetCenteredPosition(int index, int count, float spacing)
     {
         float totalWidth = (count - 1) * spacing;
         float startX = -totalWidth / 2f;
 
         float x = startX + index * spacing;
 
-        return new Vector3(x, 0f, 0f);
+        return new Vector2(x, 0f);
     }
 }
