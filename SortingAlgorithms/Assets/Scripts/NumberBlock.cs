@@ -5,64 +5,97 @@ using UnityEngine.UI;
 
 public class NumberBlock : MonoBehaviour
 {
+    [Header("UI References")]
+    public TextMeshProUGUI numberText;
+    public Image blockImage;
+
+
+    [Header("Value")]
     public int value;
 
-    public TextMeshProUGUI text;
 
-    private RectTransform rectTransform;
-    private Image image;
+    [Header("Colors")]
+    public Color normalColor = Color.white;
+    public Color highlightColor = Color.yellow;
+    public Color sortedColor = Color.green;
 
-    private Color originalColor;
-
-    void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        image = GetComponent<Image>();
-
-        if (image != null)
-            originalColor = image.color;
-    }
-
-    // ---------------- VALUE ----------------
 
     public void SetValue(int number)
     {
         value = number;
-        text.text = number.ToString();
+
+        if(numberText != null)
+        {
+            numberText.text = number.ToString();
+        }
     }
 
-    // ---------------- UI MOVEMENT ----------------
 
-    public IEnumerator MoveTo(Vector2 target, float duration)
+
+    // Move the panel smoothly
+    public IEnumerator MoveTo(Vector2 target, float speed)
     {
-        Vector2 start = rectTransform.anchoredPosition;
+        RectTransform rect =
+            GetComponent<RectTransform>();
 
-        float time = 0f;
+        Vector2 start =
+            rect.anchoredPosition;
 
-        while (time < duration)
+
+        float time = 0;
+
+
+        while(time < 1)
         {
-            rectTransform.anchoredPosition =
-                Vector2.Lerp(start, target, time / duration);
+            time += Time.deltaTime * speed;
 
-            time += Time.deltaTime;
+
+            rect.anchoredPosition =
+                Vector2.Lerp(
+                    start,
+                    target,
+                    time
+                );
+
 
             yield return null;
         }
 
-        rectTransform.anchoredPosition = target;
+
+        rect.anchoredPosition = target;
     }
 
-    // ---------------- HIGHLIGHT ----------------
 
+
+
+    // Highlight when comparing
     public void Highlight()
     {
-        if (image != null)
-            image.color = Color.yellow;
+        if(blockImage != null)
+        {
+            blockImage.color = highlightColor;
+        }
     }
 
+
+
+    // Normal state
     public void ResetColor()
     {
-        if (image != null)
-            image.color = originalColor;
+        if(blockImage != null)
+        {
+            blockImage.color = normalColor;
+        }
+    }
+
+
+
+    // Mark as sorted
+    public void SetSorted()
+    {
+        if(blockImage != null)
+        {
+            blockImage.color = sortedColor;
+        }
     }
 }

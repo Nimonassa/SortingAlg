@@ -170,8 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
+  numberText: {fileID: 929817320}
+  blockImage: {fileID: 22410282}
   value: 0
-  text: {fileID: 929817320}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  sortedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &22410282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,8 +265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
+  numberText: {fileID: 1159255553}
+  blockImage: {fileID: 87545105}
   value: 0
-  text: {fileID: 1159255553}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  sortedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &87545105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,8 +841,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -2}
+  m_SizeDelta: {x: 0, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484943206
 MonoBehaviour:
@@ -925,8 +933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
+  numberText: {fileID: 1528950285}
+  blockImage: {fileID: 725640541}
   value: 0
-  text: {fileID: 1528950285}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  sortedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &725640541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1107624697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,6 +1280,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MergeSortTutorial
   blocks:
   - {fileID: 725640538}
+  - {fileID: 22410279}
+  - {fileID: 1129908267}
+  - {fileID: 2076817460}
+  - {fileID: 87545102}
+  - {fileID: 1576593707}
   tutorialText: {fileID: 1033594624}
   moveSpeed: 4
 --- !u!4 &1107624698
@@ -1336,8 +1353,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
+  numberText: {fileID: 2029858209}
+  blockImage: {fileID: 1129908270}
   value: 0
-  text: {fileID: 2029858209}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  sortedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1129908270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2175,8 +2196,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
+  numberText: {fileID: 1354137836}
+  blockImage: {fileID: 1576593710}
   value: 0
-  text: {fileID: 1354137836}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  sortedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1576593710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2641,8 +2666,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
+  numberText: {fileID: 1642243220}
+  blockImage: {fileID: 2076817463}
   value: 0
-  text: {fileID: 1642243220}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  sortedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &2076817463
 MonoBehaviour:
   m_ObjectHideFlags: 0
