@@ -9,93 +9,72 @@ public class NumberBlock : MonoBehaviour
     public TextMeshProUGUI numberText;
     public Image blockImage;
 
-
     [Header("Value")]
     public int value;
-
 
     [Header("Colors")]
     public Color normalColor = Color.white;
     public Color highlightColor = Color.yellow;
     public Color sortedColor = Color.green;
 
+    public bool IsMoving { get; private set; } = false;
 
     public void SetValue(int number)
     {
         value = number;
-
-        if(numberText != null)
-        {
-            numberText.text = number.ToString();
-        }
+        if (numberText != null) numberText.text = number.ToString();
     }
 
-
-
-    // Move the panel smoothly
-    public IEnumerator MoveTo(Vector2 target, float speed)
+    // Move the panel smoothly using anchoredPosition; speed is units per second.
+    public IEnumerator MoveTo(Vector2 targetAnchoredPos, float speed)
     {
-        RectTransform rect =
-            GetComponent<RectTransform>();
-
-        Vector2 start =
-            rect.anchoredPosition;
-
-
-        float time = 0;
-
-
-        while(time < 1)
+        RectTransform rect = GetComponent<RectTransform>();
+        if (rect == null)
         {
-            time += Time.deltaTime * speed;
+            Debug.LogWarning($"{name}: No RectTransform found.");
+            yield break;
+        }
 
+        Vector2 start = rect.anchoredPosition;
 
-            rect.anchoredPosition =
-                Vector2.Lerp(
-                    start,
-                    target,
-                    time
-                );
+        if (Vector2.Distance(start, targetAnchoredPos) < 0.01f)
+        {
+            rect.anchoredPosition = targetAnchoredPos;
+            yield break;
+        }
 
+        if (speed <= 0f)
+        {
+            rect.anchoredPosition = targetAnchoredPos;
+            yield break;
+        }
 
+        IsMoving = true;
+        Debug.Log($"{name}: MoveTo start {start} -> target {targetAnchoredPos} at speed {speed}");
+
+        while (Vector2.Distance(rect.anchoredPosition, targetAnchoredPos) > 0.5f)
+        {
+            rect.anchoredPosition = Vector2.MoveTowards(rect.anchoredPosition, targetAnchoredPos, speed * Time.deltaTime);
             yield return null;
         }
 
-
-        rect.anchoredPosition = target;
+        rect.anchoredPosition = targetAnchoredPos;
+        IsMoving = false;
+        Debug.Log($"{name}: MoveTo finished at {rect.anchoredPosition}");
     }
 
-
-
-
-    // Highlight when comparing
     public void Highlight()
     {
-        if(blockImage != null)
-        {
-            blockImage.color = highlightColor;
-        }
+        if (blockImage != null) blockImage.color = highlightColor;
     }
 
-
-
-    // Normal state
     public void ResetColor()
     {
-        if(blockImage != null)
-        {
-            blockImage.color = normalColor;
-        }
+        if (blockImage != null) blockImage.color = normalColor;
     }
 
-
-
-    // Mark as sorted
     public void SetSorted()
     {
-        if(blockImage != null)
-        {
-            blockImage.color = sortedColor;
-        }
+        if (blockImage != null) blockImage.color = sortedColor;
     }
 }

@@ -8,7 +8,7 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI tutorialText;
 
     [Header("Number Block UI")]
-    public GameObject numberBlockPanel; // Parent panel containing number blocks
+    public GameObject numberBlockPanel; 
 
 
     [Header("Messages")]
