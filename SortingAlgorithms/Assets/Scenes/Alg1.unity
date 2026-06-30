@@ -1517,9 +1517,25 @@ PrefabInstance:
       value: MergeSortTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
+      propertyPath: startDelay
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
+      propertyPath: moveDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
       propertyPath: tutorialText
       value: 
       objectReference: {fileID: 292513249}
+    - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
+      propertyPath: firstSplitDistance
+      value: 115
+      objectReference: {fileID: 0}
+    - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
+      propertyPath: secondSplitDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
       propertyPath: 'panels.Array.data[0]'
       value: 
