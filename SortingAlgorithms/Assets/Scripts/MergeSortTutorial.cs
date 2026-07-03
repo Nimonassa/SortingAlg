@@ -87,20 +87,20 @@ yield return StartCoroutine(ThirdStepResetSpacing());
 
 
 tutorialText.text =
-    "Starting the merge process.";
+    "Now we begin the merge process.";
 
 
-yield return new WaitForSeconds(1f);
+yield return new WaitForSeconds(2f);
 
 
 tutorialText.text =
     "Merge the separated numbers into pairs.";
 
-yield return new WaitForSeconds(1f);
+yield return new WaitForSeconds(2f);
 
 
 tutorialText.text =
-    "Compare each pair and sort them.";
+    "Compare each pair and sort them. The smaller number is placed first.";
 
 yield return StartCoroutine(FourthStepCreatePairs());
 
@@ -265,7 +265,7 @@ tutorialText.text =
     yield return new WaitForSeconds(3f);
 
     tutorialText.text =
-        "And merge them into one final sorted array.";
+        "And merge the two halves into this final sorted array.";
 
     yield return new WaitForSeconds(4f);
 
