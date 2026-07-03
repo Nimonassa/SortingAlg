@@ -265,7 +265,7 @@ tutorialText.text =
     yield return new WaitForSeconds(3f);
 
     tutorialText.text =
-        "Now we merge them into one final sorted array.";
+        "And merge them into one final sorted array.";
 
     yield return new WaitForSeconds(4f);
 
