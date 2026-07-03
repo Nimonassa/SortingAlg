@@ -11,6 +11,12 @@ public class MergeSortTutorial : MonoBehaviour
     [Header("Tutorial Text")]
     public TextMeshProUGUI tutorialText;
 
+    [Header("Merge Output Slots")]
+public List<RectTransform> outputSlots = new List<RectTransform>();
+
+[Header("Output Slots")]
+public OutputSlotsController outputSlotsController;
+
 
     [Header("Settings")]
     public float firstSplitDistance = 200f;
@@ -90,12 +96,29 @@ yield return new WaitForSeconds(1f);
 tutorialText.text =
     "Merge the separated numbers into pairs.";
 
-
-yield return StartCoroutine(FourthStepCreatePairs());
+yield return new WaitForSeconds(1f);
 
 
 tutorialText.text =
     "Compare each pair and sort them.";
+
+yield return StartCoroutine(FourthStepCreatePairs());
+
+tutorialText.text = "Now we merge each half into sorted order.";
+
+yield return StartCoroutine(FifthStepMergeTriplets());
+
+
+yield return new WaitForSeconds(2f);
+
+    tutorialText.text =
+        "Both halves are now sorted.";
+
+yield return StartCoroutine(SeventhStepFinalMerge());
+
+    }
+
+
 
 
     IEnumerator FirstSplit()
@@ -208,8 +231,152 @@ IEnumerator FourthStepCreatePairs()
     panels[4] = temp;
 }
 
+IEnumerator FifthStepMergeTriplets()
+{
+    tutorialText.text = "Merge [3,8] with [1].";
 
-    IEnumerator MovePanels(Vector2[] targets)
+    yield return new WaitForSeconds(0.5f);
+
+    // 3 8 1 -> 3 1 8
+    yield return StartCoroutine(Swap(1, 2));
+
+    yield return new WaitForSeconds(0.25f);
+
+    // 3 1 8 -> 1 3 8
+    yield return StartCoroutine(Swap(0, 1));
+
+    tutorialText.text = "The left half is now sorted.";
+
+    yield return new WaitForSeconds(3.5f);
+
+    tutorialText.text = "The right half is already sorted and in the correct order.";
+
+
+}
+
+IEnumerator SeventhStepFinalMerge()
+{
+
+    outputSlotsController.ShowSlots();
+
+tutorialText.text =
+    "We will now build a new sorted array.";
+
+    yield return new WaitForSeconds(3f);
+
+    tutorialText.text =
+        "Now we merge them into one final sorted array.";
+
+    yield return new WaitForSeconds(4f);
+
+
+    tutorialText.text =
+        "Compare 1 and 2.";
+
+    yield return new WaitForSeconds(2f);
+
+    tutorialText.text =
+        "1 is smaller, so it is copied first.";
+
+    yield return StartCoroutine(MovePanelToSlot(panels[0], outputSlots[0]));
+
+    yield return new WaitForSeconds(2f);
+
+
+    tutorialText.text =
+        "Now compare 3 and 2.";
+
+    yield return new WaitForSeconds(2f);
+
+    tutorialText.text =
+        "2 is smaller.";
+
+    yield return StartCoroutine(MovePanelToSlot(panels[3], outputSlots[1]));
+
+    yield return new WaitForSeconds(2f);
+
+
+    tutorialText.text =
+        "Compare 3 and 6.";
+
+    yield return new WaitForSeconds(2f);
+
+    tutorialText.text =
+        "3 is smaller.";
+
+    yield return StartCoroutine(MovePanelToSlot(panels[1], outputSlots[2]));
+
+    yield return new WaitForSeconds(2f);
+
+
+    tutorialText.text =
+        "Compare 8 and 6.";
+
+    yield return new WaitForSeconds(2f);
+
+    tutorialText.text =
+        "6 is smaller.";
+
+    yield return StartCoroutine(MovePanelToSlot(panels[4], outputSlots[3]));
+
+    yield return new WaitForSeconds(2f);
+
+
+    tutorialText.text =
+        "Compare 8 and 9.";
+
+    yield return new WaitForSeconds(2f);
+
+    tutorialText.text =
+        "8 is smaller.";
+
+    yield return StartCoroutine(MovePanelToSlot(panels[2], outputSlots[4]));
+
+    yield return new WaitForSeconds(2f);
+
+
+    tutorialText.text =
+        "Only 9 remains.";
+
+    yield return StartCoroutine(MovePanelToSlot(panels[5], outputSlots[5]));
+
+    yield return new WaitForSeconds(2f);
+
+
+    tutorialText.text =
+        "The array is now completely sorted!";
+}
+
+    IEnumerator Swap(int indexA, int indexB)
+{
+    RectTransform panelA = panels[indexA];
+    RectTransform panelB = panels[indexB];
+
+    Vector2 startA = panelA.anchoredPosition;
+    Vector2 startB = panelB.anchoredPosition;
+
+    float timer = 0f;
+
+    while (timer < moveDuration)
+    {
+        timer += Time.deltaTime;
+        float t = timer / moveDuration;
+
+        panelA.anchoredPosition = Vector2.Lerp(startA, startB, t);
+        panelB.anchoredPosition = Vector2.Lerp(startB, startA, t);
+
+        yield return null;
+    }
+
+    panelA.anchoredPosition = startB;
+    panelB.anchoredPosition = startA;
+
+    // Update the list so future steps use the new order
+    panels[indexA] = panelB;
+    panels[indexB] = panelA;
+
+}  
+IEnumerator MovePanels(Vector2[] targets)
     {
         Vector2[] currentPositions = new Vector2[panels.Count];
 
@@ -252,4 +419,25 @@ IEnumerator FourthStepCreatePairs()
             panels[i].anchoredPosition = targets[i];
         }
     }
-}}
+
+    IEnumerator MovePanelToSlot(RectTransform panel, RectTransform slot)
+{
+    Vector2 start = panel.anchoredPosition;
+    Vector2 end = slot.anchoredPosition;
+
+    float timer = 0f;
+
+    while (timer < moveDuration)
+    {
+        timer += Time.deltaTime;
+
+        float t = timer / moveDuration;
+
+        panel.anchoredPosition = Vector2.Lerp(start, end, t);
+
+        yield return null;
+    }
+
+    panel.anchoredPosition = end;
+}
+}
