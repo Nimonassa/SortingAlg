@@ -6,7 +6,7 @@ public class PracticeMerge : MonoBehaviour
     public enum TutorialStep
     {
         Divide,
-        SortHalves,
+        Sort,
         Merge,
         Finished
     }
@@ -31,22 +31,21 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Divide;
 
         tutorialText.text =
-        "Step 1\n\n" +
-        "Merge Sort begins by DIVIDING the array.\n\n" +
-        "Drag the first three numbers into the LEFT group.\n" +
-        "Drag the last three numbers into the RIGHT group.\n\n" +
-        "When every number is in the correct half the next step will begin.";
+            "Step 1\n\n" +
+            "Merge Sort begins by dividing the array into two halves.\n\n" +
+            "Drag the first three numbers into the LEFT half.\n" +
+            "Drag the last three numbers into the RIGHT half.";
     }
 
     void BeginSortStep()
     {
-        currentStep = TutorialStep.SortHalves;
+        currentStep = TutorialStep.Sort;
 
         tutorialText.text =
-        "Great!\n\n" +
-        "Now sort BOTH halves individually.\n\n" +
-        "Remember that Merge Sort sorts each small section before combining them.\n\n" +
-        "Arrange the numbers from smallest to largest inside each half.";
+            "Great!\n\n" +
+            "Now sort BOTH halves separately.\n\n" +
+            "Left Half:\n8 12 27\n\n" +
+            "Right Half:\n2 11 35";
     }
 
     void BeginMergeStep()
@@ -54,11 +53,10 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Merge;
 
         tutorialText.text =
-        "Excellent!\n\n" +
-        "Now comes the MERGE.\n\n" +
-        "Compare the smallest remaining number from each half.\n\n" +
-        "Whichever is smaller goes into the final array.\n\n" +
-        "Continue until every number has been merged.";
+            "Excellent!\n\n" +
+            "Now merge the two sorted halves.\n\n" +
+            "Compare the first number in each half and drag the smaller one into the final row.\n" +
+            "Repeat until every number has been merged.";
     }
 
     void FinishTutorial()
@@ -66,32 +64,31 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Finished;
 
         tutorialText.text =
-        "Congratulations!\n\n" +
-        "You have completed Merge Sort.\n\n" +
-        "The array has been divided, sorted, and merged into one sorted list.";
+            "Congratulations!\n\n" +
+            "You successfully completed Merge Sort!";
     }
 
     public void CheckStep()
     {
-        switch(currentStep)
+        switch (currentStep)
         {
             case TutorialStep.Divide:
 
-                if(CheckDivide())
+                if (CheckDivide())
                     BeginSortStep();
 
                 break;
 
-            case TutorialStep.SortHalves:
+            case TutorialStep.Sort:
 
-                if(CheckSort())
+                if (CheckSort())
                     BeginMergeStep();
 
                 break;
 
             case TutorialStep.Merge:
 
-                if(CheckMerge())
+                if (CheckMerge())
                     FinishTutorial();
 
                 break;
@@ -102,13 +99,16 @@ public class PracticeMerge : MonoBehaviour
     {
         int[] expected =
         {
-            8,3,1,
-            6,2,9
+            12, 27, 8,
+            35, 11, 2
         };
 
-        for(int i=0;i<divideSlots.Length;i++)
+        if (divideSlots.Length != expected.Length)
+            return false;
+
+        for (int i = 0; i < expected.Length; i++)
         {
-            if(divideSlots[i].CurrentValue != expected[i])
+            if (divideSlots[i].CurrentValue != expected[i])
                 return false;
         }
 
@@ -119,13 +119,16 @@ public class PracticeMerge : MonoBehaviour
     {
         int[] expected =
         {
-            1,3,8,
-            2,6,9
+            8, 12, 27,
+            2, 11, 35
         };
 
-        for(int i=0;i<sortSlots.Length;i++)
+        if (sortSlots.Length != expected.Length)
+            return false;
+
+        for (int i = 0; i < expected.Length; i++)
         {
-            if(sortSlots[i].CurrentValue != expected[i])
+            if (sortSlots[i].CurrentValue != expected[i])
                 return false;
         }
 
@@ -136,12 +139,15 @@ public class PracticeMerge : MonoBehaviour
     {
         int[] expected =
         {
-            1,2,3,6,8,9
+            2, 8, 11, 12, 27, 35
         };
 
-        for(int i=0;i<mergeSlots.Length;i++)
+        if (mergeSlots.Length != expected.Length)
+            return false;
+
+        for (int i = 0; i < expected.Length; i++)
         {
-            if(mergeSlots[i].CurrentValue != expected[i])
+            if (mergeSlots[i].CurrentValue != expected[i])
                 return false;
         }
 
