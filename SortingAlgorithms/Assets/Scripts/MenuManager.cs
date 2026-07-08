@@ -7,4 +7,11 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Alg1");
     }
+
+public void MergeSortFinished()
+{
+    Debug.Log("Merge Sort tutorial finished.");
+
+    SceneManager.LoadScene("Alg1");
+}
 }

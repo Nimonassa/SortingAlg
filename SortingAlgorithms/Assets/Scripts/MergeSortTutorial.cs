@@ -28,7 +28,13 @@ public OutputSlotsController outputSlotsController;
 
     private Vector2[] startPositions;
 
+[Header("Next Screen")]
+public GameObject practiceScene;
 
+[Header("Tutorial Root")]
+public GameObject tutorialScene;
+
+private bool mergeSortFinished = false;
 
     void Start()
     {
@@ -116,6 +122,9 @@ yield return new WaitForSeconds(2f);
 
 yield return StartCoroutine(SeventhStepFinalMerge());
 
+yield return new WaitForSeconds(2f);
+
+mergeSortFinished = true;
     }
 
 
@@ -345,6 +354,20 @@ tutorialText.text =
 
     tutorialText.text =
         "The array is now completely sorted!";
+
+ yield return new WaitForSeconds(2f);
+
+ MenuManager manager = FindFirstObjectByType<MenuManager>();
+
+if (manager != null)
+{
+    manager.MergeSortFinished();
+}
+else
+{
+    Debug.LogError("MenuManager not found in the scene.");
+}
+ 
 }
 
     IEnumerator Swap(int indexA, int indexB)
@@ -375,7 +398,7 @@ tutorialText.text =
     panels[indexA] = panelB;
     panels[indexB] = panelA;
 
-}  
+} 
 IEnumerator MovePanels(Vector2[] targets)
     {
         Vector2[] currentPositions = new Vector2[panels.Count];
@@ -440,4 +463,6 @@ IEnumerator MovePanels(Vector2[] targets)
 
     panel.anchoredPosition = end;
 }
+
+
 }
