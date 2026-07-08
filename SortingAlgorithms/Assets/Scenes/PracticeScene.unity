@@ -705,9 +705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf0eadaf064e24a97e3cf01317a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragNumberBlock
-  canvas: {fileID: 1567318195}
-  tutorial: {fileID: 644673272}
-  snapDistance: 75
 --- !u!1001 &571087286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -887,12 +884,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644673270}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 782.6021, y: 372.56027, z: 2004.7457}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 175.60211, y: 31.060272, z: 2004.7457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1567318196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &644673272
 MonoBehaviour:
@@ -1538,9 +1535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf0eadaf064e24a97e3cf01317a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragNumberBlock
-  canvas: {fileID: 1567318195}
-  tutorial: {fileID: 644673272}
-  snapDistance: 75
 --- !u!1001 &954596264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1724,9 +1718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf0eadaf064e24a97e3cf01317a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragNumberBlock
-  canvas: {fileID: 1567318195}
-  tutorial: {fileID: 644673272}
-  snapDistance: 75
 --- !u!1001 &1145440422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2686,9 +2677,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf0eadaf064e24a97e3cf01317a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragNumberBlock
-  canvas: {fileID: 1567318195}
-  tutorial: {fileID: 644673272}
-  snapDistance: 75
 --- !u!1001 &1562006016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2937,6 +2925,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 644673271}
   - {fileID: 433638876}
   - {fileID: 822526373}
   m_Father: {fileID: 0}
@@ -2975,9 +2964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf0eadaf064e24a97e3cf01317a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragNumberBlock
-  canvas: {fileID: 1567318195}
-  tutorial: {fileID: 644673272}
-  snapDistance: 75
 --- !u!1 &1603949628
 GameObject:
   m_ObjectHideFlags: 0
@@ -3556,9 +3542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacf0eadaf064e24a97e3cf01317a8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragNumberBlock
-  canvas: {fileID: 1567318195}
-  tutorial: {fileID: 644673272}
-  snapDistance: 75
 --- !u!1001 &1882319205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4336,5 +4319,4 @@ SceneRoots:
   - {fileID: 1453977781}
   - {fileID: 1603949630}
   - {fileID: 1567318196}
-  - {fileID: 644673271}
   - {fileID: 1309885145}

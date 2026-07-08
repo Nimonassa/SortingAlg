@@ -95,15 +95,25 @@ public class NumberBlock : MonoBehaviour
     }
 
 
-    public void SetSlot(DropSlot slot)
-    {
-        // Remove ourselves from the previous slot.
-        if (currentSlot != null)
-            currentSlot.currentBlock = null;
+public void SetSlot(DropSlot slot)
+{
+    if (currentSlot != null)
+        currentSlot.currentBlock = null;
 
-        currentSlot = slot;
+    currentSlot = slot;
 
-        if (slot != null)
-            slot.currentBlock = this;
-    }
+    if (slot == null)
+        return;
+
+    RectTransform rect = GetComponent<RectTransform>();
+RectTransform slotRect = slot.GetComponent<RectTransform>();
+
+transform.SetParent(slot.transform, false);
+
+rect.localScale = Vector3.one;
+rect.localRotation = Quaternion.identity;
+
+// Snap exactly to the slot
+rect.position = slotRect.position;
+}
 }
