@@ -2,81 +2,102 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class NumberDrag : MonoBehaviour,
+public class DragNumberBlock : MonoBehaviour,
     IBeginDragHandler,
     IDragHandler,
     IEndDragHandler
 {
-    private RectTransform rectTransform;
+    [Header("Palette")]
+    public GameObject draggablePrefab;
+
     private Canvas canvas;
-    private CanvasGroup canvasGroup;
 
-    private Vector2 startPosition;
-    private Transform startParent;
-
-    private NumberBlock numberBlock;
+    // The clone currently being dragged
+    private GameObject draggingClone;
+    private RectTransform cloneRect;
+    private CanvasGroup cloneCanvasGroup;
+    private NumberBlock cloneNumberBlock;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        numberBlock = GetComponent<NumberBlock>();
-
         canvas = GetComponentInParent<Canvas>();
-
-        if (canvasGroup == null)
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Began dragging: " + numberBlock.value);
+        // Create a copy
+        draggingClone = Instantiate(
+            draggablePrefab,
+            canvas.transform);
 
-        startPosition = rectTransform.anchoredPosition;
-        startParent = transform.parent;
+        draggingClone.transform.SetAsLastSibling();
 
-        canvasGroup.blocksRaycasts = false;
+        cloneRect = draggingClone.GetComponent<RectTransform>();
+        cloneCanvasGroup = draggingClone.GetComponent<CanvasGroup>();
+        cloneNumberBlock = draggingClone.GetComponent<NumberBlock>();
+
+        // Copy the number value
+        NumberBlock original = GetComponent<NumberBlock>();
+        cloneNumberBlock.SetValue(original.value);
+
+        // Start exactly where the original is
+        cloneRect.position = GetComponent<RectTransform>().position;
+
+        cloneCanvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging: " + numberBlock.value);
-        rectTransform.anchoredPosition +=
-            eventData.delta / canvas.scaleFactor;
+        if (cloneRect == null)
+            return;
+
+        cloneRect.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
-{
-    Debug.Log("Ended dragging: " + numberBlock.value);
-
-    canvasGroup.blocksRaycasts = true;
-
-    DropSlot closestSlot = null;
-    float closestDistance = 80f;
-
-    foreach (DropSlot slot in FindObjectsByType<DropSlot>(FindObjectsSortMode.None))
     {
-        float distance = Vector2.Distance(
-            rectTransform.position,
-            slot.GetComponent<RectTransform>().position);
+        if (draggingClone == null)
+            return;
 
-        if (distance < closestDistance)
+        cloneCanvasGroup.blocksRaycasts = true;
+
+        DropSlot closestSlot = FindClosestSlot();
+
+        if (closestSlot != null)
         {
-            closestDistance = distance;
-            closestSlot = slot;
+            cloneNumberBlock.SetSlot(closestSlot);
+
+            Debug.Log("Placed " + cloneNumberBlock.value);
         }
+        else
+        {
+            Destroy(draggingClone);
+        }
+
+        draggingClone = null;
     }
 
-    if (closestSlot != null)
+    private DropSlot FindClosestSlot()
     {
+        DropSlot[] slots =
+            FindObjectsByType<DropSlot>(FindObjectsSortMode.None);
 
-        Debug.Log("Snapping to: " + closestSlot.name);
-        numberBlock.SetSlot(closestSlot);
+        DropSlot closest = null;
+        float minDistance = 80f;
+
+        foreach (DropSlot slot in slots)
+        {
+            float distance = Vector2.Distance(
+                cloneRect.position,
+                slot.GetComponent<RectTransform>().position);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = slot;
+            }
+        }
+
+        return closest;
     }
-    else
-    {
-        transform.SetParent(startParent, false);
-        rectTransform.anchoredPosition = startPosition;
-    }
-}
 }
