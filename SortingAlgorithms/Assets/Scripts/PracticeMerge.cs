@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+
 
 public class PracticeMerge : MonoBehaviour
 {
@@ -23,7 +25,21 @@ public class PracticeMerge : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(TutorialSequence());
+    }
+
+    IEnumerator TutorialSequence()
+    {
+        yield return new WaitForSeconds(1f);
         BeginDivideStep();
+
+        yield return new WaitForSeconds(10f);
+        BeginSortStep();
+
+        yield return new WaitForSeconds(10f);
+        BeginMergeStep();
+
+        // You can add more timed steps here if needed
     }
 
     void BeginDivideStep()
@@ -73,24 +89,18 @@ public class PracticeMerge : MonoBehaviour
         switch (currentStep)
         {
             case TutorialStep.Divide:
-
                 if (CheckDivide())
                     BeginSortStep();
-
                 break;
 
             case TutorialStep.Sort:
-
                 if (CheckSort())
                     BeginMergeStep();
-
                 break;
 
             case TutorialStep.Merge:
-
                 if (CheckMerge())
                     FinishTutorial();
-
                 break;
         }
     }
