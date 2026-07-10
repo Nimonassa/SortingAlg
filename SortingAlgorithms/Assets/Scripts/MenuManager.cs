@@ -12,6 +12,6 @@ public void MergeSortFinished()
 {
     Debug.Log("Merge Sort tutorial finished.");
 
-    SceneManager.LoadScene("Alg1");
+    SceneManager.LoadScene("PracticeScene");
 }
 }

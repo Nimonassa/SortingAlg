@@ -36,10 +36,9 @@ public class PracticeMerge : MonoBehaviour
         yield return new WaitForSeconds(10f);
         BeginSortStep();
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(15f);
         BeginMergeStep();
 
-        // You can add more timed steps here if needed
     }
 
     void BeginDivideStep()
@@ -48,7 +47,7 @@ public class PracticeMerge : MonoBehaviour
 
         tutorialText.text =
             "Step 1\n\n" +
-            "Merge Sort begins by dividing the array into two halves.\n\n" +
+            "In the first row, Merge Sort begins by dividing the array into two halves.\n\n" +
             "Drag the first three numbers into the LEFT half.\n" +
             "Drag the last three numbers into the RIGHT half.";
     }
@@ -59,7 +58,7 @@ public class PracticeMerge : MonoBehaviour
 
         tutorialText.text =
             "Great!\n\n" +
-            "Now sort BOTH halves separately.\n\n" +
+            "In the second row, Now sort BOTH halves separately.\n\n" +
             "Left Half:\n8 12 27\n\n" +
             "Right Half:\n2 11 35";
     }
@@ -70,7 +69,7 @@ public class PracticeMerge : MonoBehaviour
 
         tutorialText.text =
             "Excellent!\n\n" +
-            "Now merge the two sorted halves.\n\n" +
+            "In the third row, demonstrate the merge between the two sorted halves.\n\n" +
             "Compare the first number in each half and drag the smaller one into the final row.\n" +
             "Repeat until every number has been merged.";
     }
