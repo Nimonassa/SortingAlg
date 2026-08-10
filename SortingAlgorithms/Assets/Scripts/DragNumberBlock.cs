@@ -6,6 +6,7 @@ public class DragNumberBlock : MonoBehaviour,
     IBeginDragHandler,
     IDragHandler,
     IEndDragHandler
+    
 {
     [Header("Palette")]
     public GameObject draggablePrefab;

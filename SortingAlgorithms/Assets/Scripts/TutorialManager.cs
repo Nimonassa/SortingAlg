@@ -8,7 +8,9 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI tutorialText;
 
     [Header("Number Block UI")]
-    public GameObject numberBlockPanel; 
+    public GameObject numberBlockPanel;
+
+    public MergeSortTutorial mergeSortTutorial;
 
 
     [Header("Messages")]
@@ -94,9 +96,6 @@ public class TutorialManager : MonoBehaviour
     }
 
 
-
-
-
     private void TutorialFinished()
     {
         tutorialFinished = true;
@@ -107,11 +106,12 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log("Tutorial finished. Showing number blocks.");
 
-
-        // Show the merge sort UI
         if (numberBlockPanel != null)
         {
+
             numberBlockPanel.SetActive(true);
+
+            mergeSortTutorial.Init();
         }
     }
 }

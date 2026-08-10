@@ -2060,6 +2060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
   tutorialText: {fileID: 1519511331}
   numberBlockPanel: {fileID: 354149756}
+  mergeSortTutorial: {fileID: 2003435844}
   messages:
   - "What are algorithms? \nAn algorithm is a set of step-by-step instructions used
     to solve a problem or complete a task. Just like following a recipe requires
@@ -2352,6 +2353,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4175923654702704889, guid: 3bd06c73b5b09da4b925ffde33c493f7, type: 3}
   m_PrefabInstance: {fileID: 134949981}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2003435844 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
+  m_PrefabInstance: {fileID: 6121559680699193597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6955ea135582744babe65a9ab31f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MergeSortTutorialUI
 --- !u!224 &2076817461 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7688316818725789635, guid: 6a17d488489c6804295c8426979bc6d2, type: 3}
@@ -2381,7 +2393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
       propertyPath: startDelay
-      value: 9
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8563538946070104818, guid: ef93493d85e92174ea602c72f563b081, type: 3}
       propertyPath: moveDuration

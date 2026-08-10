@@ -23,7 +23,7 @@ public OutputSlotsController outputSlotsController;
     public float secondSplitDistance = 100f;
 
     public float moveDuration = 1f;
-    public float startDelay = 2f;
+    public float startDelay = 1f;
 
 
     private Vector2[] startPositions;
@@ -52,10 +52,14 @@ private bool mergeSortFinished = false;
         }
 
 
-        StartCoroutine(StartTutorial());
     }
 
 
+    public void Init()
+{
+    StartCoroutine(StartTutorial());
+
+}
 
     IEnumerator StartTutorial()
     {
