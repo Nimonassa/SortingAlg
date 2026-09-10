@@ -23,6 +23,8 @@ public class PracticeMerge : MonoBehaviour
     public DropSlot[] sortSlots;
     public DropSlot[] mergeSlots;
 
+    [Header("Feedback")]
+    public TMP_Text feedbackText;
     private void Start()
     {
         StartCoroutine(TutorialSequence());
@@ -33,10 +35,10 @@ public class PracticeMerge : MonoBehaviour
         yield return new WaitForSeconds(1f);
         BeginDivideStep();
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(13f);
         BeginSortStep();
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(18f);
         BeginMergeStep();
 
     }
@@ -47,9 +49,9 @@ public class PracticeMerge : MonoBehaviour
 
         tutorialText.text =
             "Step 1\n\n" +
-            "In the first row, Merge Sort begins by dividing the array into two halves.\n\n" +
-            "Drag the first three numbers into the LEFT half.\n" +
-            "Drag the last three numbers into the RIGHT half.";
+            "In row 1, Merge Sort begins by dividing the array into two halves.\n\n" +
+            "Drag the first three numbers into the LEFT half without changing the order.\n" +
+            "Do the same to the last three numbers by putting them into the RIGHT half.";
     }
 
     void BeginSortStep()
@@ -57,8 +59,7 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Sort;
 
         tutorialText.text =
-            "Great!\n\n" +
-            "In the second row, Now sort BOTH halves separately.\n\n" +
+            "Now in row 2, sort BOTH halves separately.\n\n" +
             "Left Half:\n8 12 27\n\n" +
             "Right Half:\n2 11 35";
     }
@@ -68,9 +69,8 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Merge;
 
         tutorialText.text =
-            "Excellent!\n\n" +
             "In the third row, demonstrate the merge between the two sorted halves.\n\n" +
-            "Compare the first number in each half and drag the smaller one into the final row.\n" +
+            "Compare the first number in each half and drag the smaller one into the final row like demonstrated in the inst .\n" +
             "Repeat until every number has been merged.";
     }
 
@@ -162,4 +162,67 @@ public class PracticeMerge : MonoBehaviour
 
         return true;
     }
+
+    public void SubmitAnswer()
+{
+    bool divideCorrect = CheckDivide();
+    bool sortCorrect = CheckSort();
+    bool mergeCorrect = CheckMerge();
+
+    // Check for completely empty rows first
+    bool divideEmpty = IsRowEmpty(divideSlots);
+    bool sortEmpty = IsRowEmpty(sortSlots);
+    bool mergeEmpty = IsRowEmpty(mergeSlots);
+
+    // Everything is correct
+    if (divideCorrect && sortCorrect && mergeCorrect)
+    {
+        feedbackText.text = "Everything is correct!\n\n" +
+                            "You successfully completed all three stages of Merge Sort!";
+        return;
+    }
+
+    // Build feedback message
+    string message = "";
+
+    if (divideEmpty)
+    {
+        message += "Row 1 (Divide) has not been filled.\n";
+    }
+    else if (!divideCorrect)
+    {
+        message += "Row 1 (Divide) contains mistakes.\n";
+    }
+
+    if (sortEmpty)
+    {
+        message += "Row 2 (Sort) has not been filled.\n";
+    }
+    else if (!sortCorrect)
+    {
+        message += "Row 2 (Sort) contains mistakes.\n";
+    }
+
+    if (mergeEmpty)
+    {
+        message += "Row 3 (Merge) has not been filled.\n";
+    }
+    else if (!mergeCorrect)
+    {
+        message += "Row 3 (Merge) contains mistakes.\n";
+    }
+
+    feedbackText.text = message;
+}
+
+bool IsRowEmpty(DropSlot[] slots)
+{
+    for (int i = 0; i < slots.Length; i++)
+    {
+        if (slots[i].CurrentValue != 0)
+            return false;
+    }
+
+    return true;
+}
 }
