@@ -94,26 +94,27 @@ public class NumberBlock : MonoBehaviour
             blockImage.color = sortedColor;
     }
 
+    public void SetSlot(DropSlot slot)
+    {
+        if (currentSlot != null)
+            currentSlot.currentBlock = null;
 
-public void SetSlot(DropSlot slot)
-{
-    if (currentSlot != null)
-        currentSlot.currentBlock = null;
+        currentSlot = slot;
 
-    currentSlot = slot;
+        if (slot == null)
+            return;
 
-    if (slot == null)
-        return;
+        slot.currentBlock = this;
 
-    RectTransform rect = GetComponent<RectTransform>();
-RectTransform slotRect = slot.GetComponent<RectTransform>();
+        RectTransform rect = GetComponent<RectTransform>();
+        RectTransform slotRect = slot.GetComponent<RectTransform>();
 
-transform.SetParent(slot.transform, false);
+        transform.SetParent(slot.transform, false);
 
-rect.localScale = Vector3.one;
-rect.localRotation = Quaternion.identity;
+        rect.localScale = Vector3.one;
+        rect.localRotation = Quaternion.identity;
 
-// Snap exactly to the slot
-rect.position = slotRect.position;
-}
+        // Snap exactly to the slot
+        rect.position = slotRect.position;
+    }
 }

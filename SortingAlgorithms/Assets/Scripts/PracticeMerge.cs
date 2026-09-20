@@ -1,7 +1,7 @@
+
 using System.Collections;
 using TMPro;
 using UnityEngine;
-
 
 public class PracticeMerge : MonoBehaviour
 {
@@ -25,6 +25,7 @@ public class PracticeMerge : MonoBehaviour
 
     [Header("Feedback")]
     public TMP_Text feedbackText;
+
     private void Start()
     {
         StartCoroutine(TutorialSequence());
@@ -40,7 +41,6 @@ public class PracticeMerge : MonoBehaviour
 
         yield return new WaitForSeconds(18f);
         BeginMergeStep();
-
     }
 
     void BeginDivideStep()
@@ -69,8 +69,8 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Merge;
 
         tutorialText.text =
-            "In the third row, demonstrate the merge between the two sorted halves.\n\n" +
-            "Compare the first number in each half and drag the smaller one into the final row like demonstrated in the inst .\n" +
+            "In row 3, demonstrate the merge between the two sorted halves.\n\n" +
+            "Compare the first number in each half and drag the smaller one into the final row.\n" +
             "Repeat until every number has been merged.";
     }
 
@@ -83,26 +83,10 @@ public class PracticeMerge : MonoBehaviour
             "You successfully completed Merge Sort!";
     }
 
-    public void CheckStep()
-    {
-        switch (currentStep)
-        {
-            case TutorialStep.Divide:
-                if (CheckDivide())
-                    BeginSortStep();
-                break;
 
-            case TutorialStep.Sort:
-                if (CheckSort())
-                    BeginMergeStep();
-                break;
-
-            case TutorialStep.Merge:
-                if (CheckMerge())
-                    FinishTutorial();
-                break;
-        }
-    }
+    // =========================
+    // CHECK CORRECT ANSWERS
+    // =========================
 
     bool CheckDivide()
     {
@@ -163,66 +147,68 @@ public class PracticeMerge : MonoBehaviour
         return true;
     }
 
-    public void SubmitAnswer()
+
+    // =========================
+    // SUBMIT BUTTON
+    // =========================
+
+public void SubmitAnswer()
 {
-    bool divideCorrect = CheckDivide();
-    bool sortCorrect = CheckSort();
-    bool mergeCorrect = CheckMerge();
-
-    // Check for completely empty rows first
-    bool divideEmpty = IsRowEmpty(divideSlots);
-    bool sortEmpty = IsRowEmpty(sortSlots);
-    bool mergeEmpty = IsRowEmpty(mergeSlots);
-
-    // Everything is correct
-    if (divideCorrect && sortCorrect && mergeCorrect)
+    if (!AreAllSlotsFilled())
     {
-        feedbackText.text = "Everything is correct!\n\n" +
-                            "You successfully completed all three stages of Merge Sort!";
+        feedbackText.text = "Please make sure all slots are filled.";
         return;
     }
 
-    // Build feedback message
-    string message = "";
-
-    if (divideEmpty)
-    {
-        message += "Row 1 (Divide) has not been filled.\n";
-    }
-    else if (!divideCorrect)
-    {
-        message += "Row 1 (Divide) contains mistakes.\n";
-    }
-
-    if (sortEmpty)
-    {
-        message += "Row 2 (Sort) has not been filled.\n";
-    }
-    else if (!sortCorrect)
-    {
-        message += "Row 2 (Sort) contains mistakes.\n";
-    }
-
-    if (mergeEmpty)
-    {
-        message += "Row 3 (Merge) has not been filled.\n";
-    }
-    else if (!mergeCorrect)
-    {
-        message += "Row 3 (Merge) contains mistakes.\n";
-    }
-
-    feedbackText.text = message;
+    feedbackText.text = "All slots are filled!";
 }
 
-bool IsRowEmpty(DropSlot[] slots)
+
+bool AreAllSlotsFilled()
 {
-    for (int i = 0; i < slots.Length; i++)
+    // Check Row 1
+    foreach (DropSlot slot in divideSlots)
     {
-        if (slots[i].CurrentValue != 0)
+        if (slot == null || slot.CurrentValue == -1)
+            return false;
+    }
+
+    // Check Row 2
+    foreach (DropSlot slot in sortSlots)
+    {
+        if (slot == null || slot.CurrentValue == -1)
+            return false;
+    }
+
+    // Check Row 3
+    foreach (DropSlot slot in mergeSlots)
+    {
+        if (slot == null || slot.CurrentValue == -1)
             return false;
     }
 
     return true;
 }
+
+
+
+
+    // =========================
+    // CHECK IF EVERY SLOT
+    // IN A ROW IS FILLED
+    // =========================
+
+    bool IsRowFilled(DropSlot[] slots)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] == null)
+                return false;
+
+            if (slots[i].CurrentValue == -1)
+                return false;
+        }
+
+        return true;
+    }
 }
