@@ -2907,7 +2907,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6376f59b26e60c4e8b7389cfa26fbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropSlot
-  currentBlock: {fileID: 188947277}
+  currentBlock: {fileID: 1405261562}
+--- !u!114 &1405261562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3449037777958542078, guid: aa68c154ca696c74490f4356d3eb2f75, type: 3}
+  m_PrefabInstance: {fileID: 1405261554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405261556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343ca2b331dbf404d953c4a4aad0f0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NumberBlock
 --- !u!1 &1453977778
 GameObject:
   m_ObjectHideFlags: 0

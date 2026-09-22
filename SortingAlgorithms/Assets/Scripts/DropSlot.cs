@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DropSlot : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public NumberBlock currentBlock;
 
     public int CurrentValue

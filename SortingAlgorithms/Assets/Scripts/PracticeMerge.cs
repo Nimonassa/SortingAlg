@@ -101,7 +101,7 @@ public class PracticeMerge : MonoBehaviour
 
         for (int i = 0; i < expected.Length; i++)
         {
-            if (divideSlots[i].CurrentValue != expected[i])
+            if (divideSlots[i].gameObject.GetComponent<NumberBlock>().value != expected[i])
                 return false;
         }
 
@@ -121,7 +121,7 @@ public class PracticeMerge : MonoBehaviour
 
         for (int i = 0; i < expected.Length; i++)
         {
-            if (sortSlots[i].CurrentValue != expected[i])
+            if (sortSlots[i].gameObject.GetComponent<NumberBlock>().value != expected[i])
                 return false;
         }
 
@@ -140,7 +140,7 @@ public class PracticeMerge : MonoBehaviour
 
         for (int i = 0; i < expected.Length; i++)
         {
-            if (mergeSlots[i].CurrentValue != expected[i])
+            if (mergeSlots[i].gameObject.GetComponent<NumberBlock>().value != expected[i])
                 return false;
         }
 
@@ -151,7 +151,6 @@ public class PracticeMerge : MonoBehaviour
     // =========================
     // SUBMIT BUTTON
     // =========================
-
 public void SubmitAnswer()
 {
     if (!AreAllSlotsFilled())
@@ -160,39 +159,54 @@ public void SubmitAnswer()
         return;
     }
 
-    feedbackText.text = "All slots are filled!";
-}
+        if (!CheckDivide())
+    {
+        feedbackText.text = "Please make sure divide row is filled in correctly and click Submit again.";
+        return;
+    }
 
+        if (!CheckSort())
+    {
+        feedbackText.text = "Please make sure Sort row is filled in correctly and click Submit again.";
+        return;
+    }
+
+            if (!CheckMerge())
+    {
+        feedbackText.text = "Please make sure Merge row is filled in correctly and click Submit again.";
+        return;
+    }
+
+    feedbackText.text = "All slots are filled and correct! Good job!";
+
+
+}
 
 bool AreAllSlotsFilled()
 {
-    // Check Row 1
     foreach (DropSlot slot in divideSlots)
     {
-        if (slot == null || slot.CurrentValue == -1)
+        NumberBlock nslot = slot.gameObject.GetComponent<NumberBlock>();
+        if (slot == null || nslot.value == 0)
             return false;
     }
 
-    // Check Row 2
     foreach (DropSlot slot in sortSlots)
     {
-        if (slot == null || slot.CurrentValue == -1)
+        NumberBlock nslot = slot.gameObject.GetComponent<NumberBlock>();
+        if (slot == null || nslot.value == 0)
             return false;
     }
 
-    // Check Row 3
     foreach (DropSlot slot in mergeSlots)
     {
-        if (slot == null || slot.CurrentValue == -1)
+        NumberBlock nslot = slot.gameObject.GetComponent<NumberBlock>();
+        if (slot == null || nslot.value == 0)
             return false;
     }
 
     return true;
 }
-
-
-
-
     // =========================
     // CHECK IF EVERY SLOT
     // IN A ROW IS FILLED
@@ -208,7 +222,6 @@ bool AreAllSlotsFilled()
             if (slots[i].CurrentValue == -1)
                 return false;
         }
-
         return true;
     }
 }

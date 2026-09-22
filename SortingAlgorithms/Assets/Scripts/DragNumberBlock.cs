@@ -68,6 +68,8 @@ public class DragNumberBlock : MonoBehaviour,
         {
             cloneNumberBlock.SetSlot(closestSlot);
 
+            closestSlot.gameObject.GetComponent<NumberBlock>().value = cloneNumberBlock.value;
+
             Debug.Log("Placed " + cloneNumberBlock.value);
         }
         else
