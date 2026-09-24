@@ -177,7 +177,7 @@ public void SubmitAnswer()
         return;
     }
 
-    feedbackText.text = "All slots are filled and correct! Good job!";
+    feedbackText.text = "All slots are filled and correct! Good job! This is the end of the gamified experience!";
 
 
 }

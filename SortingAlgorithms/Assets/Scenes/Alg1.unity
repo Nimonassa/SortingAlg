@@ -1110,7 +1110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
+  m_Color: {r: 0.07058824, g: 0.05882353, b: 0.11372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2067,8 +2067,8 @@ MonoBehaviour:
     completing steps in a specific order, algorithms guide a computer through a process
     to reach a desired result.\nSorting is one example of a problem that algorithms
     can solve. Sorting means arranging items into a specific order, such as organizing
-    numbers from smallest to largest.\n\nProceed to the next page if you would like
-    to know learn more about sorting algorithms. "
+    numbers from smallest to largest.\n\nProceed to the next page to learn more about
+    sorting algorithms. "
   - 'Sorting algorithms are methods that tell computers how to organize data. They
     are useful because computers often handle large amounts of information, and organized
     data is easier and faster to search, analyze, and use.
@@ -2078,9 +2078,9 @@ MonoBehaviour:
     algorithms use different strategies to arrange the same data. Some compare values
     with each other, while others move items into their correct positions step by
     step.'
-  - "In this section we will learn about Insertion-sort algorithm. \n\nPress on Next
-    if you're ready! \n"
-  typingSpeed: -0.63
+  - "In this section we will learn about Merge-sort algorithm which is one of them
+    most useful ones to learn\n\nPress on Next if you're ready! \n"
+  typingSpeed: 0.02
   tutorialFinished: 0
 --- !u!4 &1524708404
 Transform:
