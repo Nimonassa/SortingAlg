@@ -48,7 +48,7 @@ public class PracticeMerge : MonoBehaviour
         currentStep = TutorialStep.Divide;
 
         tutorialText.text =
-            "Step 1\n\n" +
+            "Now you will practice merging by yourself\n\n" +
             "In row 1, Merge Sort begins by dividing the array into two halves.\n\n" +
             "Drag the first three numbers into the LEFT half without changing the order.\n" +
             "Do the same to the last three numbers by putting them into the RIGHT half.";
@@ -60,8 +60,8 @@ public class PracticeMerge : MonoBehaviour
 
         tutorialText.text =
             "Now in row 2, sort BOTH halves separately.\n\n" +
-            "Left Half:\n8 12 27\n\n" +
-            "Right Half:\n2 11 35";
+            "Left Half will for example be 8, 12, 27" +
+            "you figure out the Right Half";
     }
 
     void BeginMergeStep()
@@ -161,19 +161,19 @@ public void SubmitAnswer()
 
         if (!CheckDivide())
     {
-        feedbackText.text = "Please make sure divide row is filled in correctly and click Submit again.";
+        feedbackText.text = "Please make sure row 1 is filled in correctly and click Submit again.";
         return;
     }
 
         if (!CheckSort())
     {
-        feedbackText.text = "Please make sure Sort row is filled in correctly and click Submit again.";
+        feedbackText.text = "Please make sure row 2 is filled in correctly and click Submit again.";
         return;
     }
 
             if (!CheckMerge())
     {
-        feedbackText.text = "Please make sure Merge row is filled in correctly and click Submit again.";
+        feedbackText.text = "Please make sure row 3 is filled in correctly and click Submit again.";
         return;
     }
 
